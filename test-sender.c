@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,9 +15,31 @@ int main(int argc, char *argv[])
 	buffer[1] = 0x1F;
 	buffer[2] = 0x1F;
 	buffer[3] = 0x1F;
-	*pX = 102;
-	*pY = -103;
-	*pZ = 271;
+	if(argc > 1)
+	{
+		*pX = atoi(argv[1]);
+	}
+	else
+	{
+		*pX = 0;
+	}
+	if(argc > 2)
+	{
+		*pY = atoi(argv[2]);
+	}
+	else
+	{
+		*pY = 0;
+	}
+	if(argc > 3)
+	{
+		*pZ = atoi(argv[3]);
+	}
+	else
+	{
+		*pZ = 0;
+	}
+	printf("sending: x=%d y=%d z=%d\r\n", *pX, *pY, *pZ);
 	write(uart2, buffer, 10);
 	return 0;
 }
